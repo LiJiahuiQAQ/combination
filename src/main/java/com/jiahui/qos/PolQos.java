@@ -1,5 +1,10 @@
 package com.jiahui.qos;
 
+import com.jiahui.geneticAlgorithm.GeneticAlgorithmTest;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @program: combination
  * @description: 用于聚合qos
@@ -10,9 +15,9 @@ public class PolQos {
 
     public static Qos qos [][];
 
-    public static int serviceNum=4; //聚合数
+    public static int serviceNum= GeneticAlgorithmTest.WS_NUM; //聚合数
 
-    public static int combinateNum=4; //每个微服务拥有的备份
+    public static int combinateNum=GeneticAlgorithmTest.DIG_NUM; //每个微服务拥有的备份
 
     public static float wAv=1;
 
@@ -24,9 +29,31 @@ public class PolQos {
 
     public static void main(String args[]){
         prepare();
-        System.out.println(polAll(qos[0]));
-    }
+        List<Float> list=new ArrayList<Float>();
 
+        for(int i=0;i<4;i++){
+            for(int j=0;j<4;j++){
+                for(int k=0;k<4;k++){
+                    for(int m=0;m<4;m++){
+                        System.out.println(20-polAll(new int[]{i, j, k, m}));
+                        list.add( (20-polAll(new int[]{i, j, k, m})));
+                    }
+                }
+            }
+            System.out.println();
+        }
+
+
+        float max=list.get(0);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i)>max){
+                max=list.get(i);
+            }
+        }
+
+        System.out.println("max: "+max);
+
+    }
     public static void prepare(){
         NormalizeQos.normalizeAll();
         qos=new Qos[combinateNum][serviceNum];
@@ -59,15 +86,19 @@ public class PolQos {
         return qosAv;
     }
 
-    public static float polAll(Qos[] qoslist){
-        float qos=0;
-        System.out.println("av:  "+polAv(qoslist)*wAv);
-        System.out.println("co:   "+polCo(qoslist)*wCo);
-        System.out.println("rt:   "+polRt(qoslist)*wRt);
-        System.out.println("th:   "+polTh(qoslist)*wTh);
+    public static float polAll(int[] intlist){
+        float qosNum=0;
+        Qos[] qoslist=new Qos[4];
 
-        qos=polAv(qoslist)*wAv+polCo(qoslist)*wCo+polRt(qoslist)*wRt+polTh(qoslist)*wTh;
-        return qos;
+        qoslist[0]=qos[intlist[0]][0];
+        qoslist[1]=qos[intlist[1]][1];
+        qoslist[2]=qos[intlist[2]][2];
+        qoslist[3]=qos[intlist[3]][3];
+
+
+
+        qosNum=polAv(qoslist)*wAv+polCo(qoslist)*wCo+polRt(qoslist)*wRt+polTh(qoslist)*wTh;
+        return qosNum;
     }
 
     public static float polTh(Qos [] qoslist){

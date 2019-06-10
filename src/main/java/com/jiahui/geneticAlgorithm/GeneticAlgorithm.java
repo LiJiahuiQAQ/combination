@@ -1,6 +1,8 @@
 package com.jiahui.geneticAlgorithm;
 
 
+import com.jiahui.tools.DButil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +15,10 @@ import java.util.List;
  */
 public abstract class GeneticAlgorithm {
     private List<Chromosome> population = new ArrayList<Chromosome>();
-    private int popSize = 100;//种群数量
+    private int popSize = 20;//种群数量
     private int geneSize;//基因最大长度
-    private int maxIterNum = 500;//最大迭代次数
-    private double mutationRate = 0.01;//基因变异的概率
+    private int maxIterNum = 300;//最大迭代次数
+    private double mutationRate = 0.03;//基因变异的概率
     private int maxMutationNum = 3;//最大变异步长
 
     private int generation = 1;//当前遗传到第几代
@@ -29,6 +31,8 @@ public abstract class GeneticAlgorithm {
     private double x; //记录历史种群中最好的X值
     private double y; //记录历史种群中最好的Y值
     private int geneI;//x y所在代数
+
+    DButil db=new DButil();
 
     public GeneticAlgorithm(int geneSize) {
         this.geneSize = geneSize;
@@ -51,13 +55,18 @@ public abstract class GeneticAlgorithm {
      * @Description: 输出结果
      */
     private void print() {
-        System.out.println("--------------------------------");
+        System.out.println("\n--------------------------------");
         System.out.println("the generation is:" + generation);
         System.out.println("the best y is:" + bestScore);
         System.out.println("the worst fitness is:" + worstScore);
         System.out.println("the average fitness is:" + averageScore);
         System.out.println("the total fitness is:" + totalScore);
-        System.out.println("geneI:" + geneI + "\tx:" + x + "\ty:" + y);
+        System.out.println("geneI:" + geneI + "\tx:" + x + "\ty:" + y+"\n");
+
+        db.update("INSERT INTO `lab`.`data`(`id`,`best`,`worst`,`average`,`x`,`y`,`gen`) VALUES ( NULL,'"+bestScore+"','"+worstScore+"','"+averageScore+"','"+x+"','"+y+"','"+generation+"');");
+
+
+
     }
 
 

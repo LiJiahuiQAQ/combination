@@ -132,7 +132,7 @@ public class Chromosome {
      * @Author:Li jiahui
      * @Description: 将基因转化为对应的数字
      */
-    public int getNum() {
+   public int getNum() {
         if (gene == null) {
             return 0;
         }
