@@ -11,7 +11,7 @@ import com.jiahui.qos.PolQos;
  */
 public class GeneticAlgorithmTest extends GeneticAlgorithm{
     public static final int DIG_NUM=3;
-    public static final int WS_NUM=;
+    public static final int WS_NUM=8;
     public static final int NUM = 1 << DIG_NUM*WS_NUM;
 
     public GeneticAlgorithmTest() {
@@ -29,28 +29,19 @@ public class GeneticAlgorithmTest extends GeneticAlgorithm{
     public double caculateY(double x) {
         // TODO Auto-generated method stub
         String[] select=new String[WS_NUM];
-        String str=binaryToDecimal((int)x);
-
-        System.out.print(str+" ");
-
         int qos[] =new int[WS_NUM];
+
+        String str=binaryToDecimal((int)x);
 
         for(int i=0;i<WS_NUM;i++){
             select[i]=str.substring(i*DIG_NUM,(i+1)*DIG_NUM);
         }
-//
-//        select[0]=str.substring(0,2);
-//        select[1]=str.substring(2,4);
-//        select[2]=str.substring(4,6);
-//        select[3]=str.substring(6,8);
 
         for(int i=0;i<WS_NUM;i++){
             qos[i]=binaryToInt(select[i]);
         }
 
-
-        return WS_NUM*5-PolQos.polAll(qos);
-   //     return 300-x;
+        return WS_NUM*200-PolQos.polAll(qos);
     }
 
     public String binaryToDecimal(int n){

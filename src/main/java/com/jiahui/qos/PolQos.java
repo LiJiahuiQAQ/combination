@@ -17,9 +17,9 @@ public class PolQos {
 
     public static int serviceNum= GeneticAlgorithmTest.WS_NUM; //聚合数
 
-    public static int combinateNum=GeneticAlgorithmTest.DIG_NUM; //每个微服务拥有的备份
+    public static int combinateNum= (int) Math.pow(2,GeneticAlgorithmTest.DIG_NUM); //每个微服务拥有的备份
 
-    public static float wAv=1;
+    public static float wAv=1000;
 
     public static float wTh=1000;
 
@@ -35,8 +35,8 @@ public class PolQos {
             for(int j=0;j<4;j++){
                 for(int k=0;k<4;k++){
                     for(int m=0;m<4;m++){
-                        System.out.println(20-polAll(new int[]{i, j, k, m}));
-                        list.add( (20-polAll(new int[]{i, j, k, m})));
+                        System.out.println(1000-polAll(new int[]{i, j, k, m}));
+                        list.add( (1000-polAll(new int[]{i, j, k, m})));
                     }
                 }
             }
@@ -56,6 +56,7 @@ public class PolQos {
     }
     public static void prepare(){
         NormalizeQos.normalizeAll();
+        System.out.println("combinationNum:"+combinateNum+" serviceNum:"+serviceNum);
         qos=new Qos[combinateNum][serviceNum];
 
         for(int i=0;i<combinateNum;i++){
@@ -88,14 +89,10 @@ public class PolQos {
 
     public static float polAll(int[] intlist){
         float qosNum=0;
-        Qos[] qoslist=new Qos[4];
-
-        qoslist[0]=qos[intlist[0]][0];
-        qoslist[1]=qos[intlist[1]][1];
-        qoslist[2]=qos[intlist[2]][2];
-        qoslist[3]=qos[intlist[3]][3];
-
-
+        Qos[] qoslist=new Qos[serviceNum];
+        for(int i=0;i<qoslist.length;i++){
+            qoslist[i]=qos[intlist[i]][i];
+        }
 
         qosNum=polAv(qoslist)*wAv+polCo(qoslist)*wCo+polRt(qoslist)*wRt+polTh(qoslist)*wTh;
         return qosNum;
