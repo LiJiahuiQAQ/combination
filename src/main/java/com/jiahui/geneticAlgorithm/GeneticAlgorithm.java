@@ -18,7 +18,7 @@ public abstract class GeneticAlgorithm {
     private int popSize = 20;//种群数量
     private int geneSize;//基因最大长度
     private int maxIterNum = 500;//最大迭代次数
-    private double mutationRate = 0.03;//基因变异的概率
+    private double mutationRate = 0.5;//基因变异的概率
     private int maxMutationNum = 3;//最大变异步长
 
     private int generation = 1;//当前遗传到第几代
@@ -32,7 +32,7 @@ public abstract class GeneticAlgorithm {
     private double y; //记录历史种群中最好的Y值
     private int geneI;//x y所在代数
 
-    DButil db=new DButil();
+//    DButil db=new DButil();
 
     public GeneticAlgorithm(int geneSize) {
         this.geneSize = geneSize;
@@ -63,7 +63,7 @@ public abstract class GeneticAlgorithm {
         System.out.println("the total fitness is:" + totalScore);
         System.out.println("geneI:" + geneI + "\tx:" + x + "\ty:" + y+"\n");
 
-        db.update("INSERT INTO `lab`.`data`(`id`,`best`,`worst`,`average`,`x`,`y`,`gen`) VALUES ( NULL,'"+bestScore+"','"+worstScore+"','"+averageScore+"','"+x+"','"+y+"','"+generation+"');");
+//        db.update("INSERT INTO `lab`.`data`(`id`,`best`,`worst`,`average`,`x`,`y`,`gen`) VALUES ( NULL,'"+bestScore+"','"+worstScore+"','"+averageScore+"','"+x+"','"+y+"','"+generation+"');");
 
 
 
@@ -77,8 +77,10 @@ public abstract class GeneticAlgorithm {
     private void init() {
 
         population = new ArrayList<Chromosome>();
-        for (int i = 0; i < popSize; i++) {
-            Chromosome chro = new Chromosome(geneSize);
+        Chromosome chro = new Chromosome(geneSize);
+        population.add(chro);
+        for (int i = 1; i < popSize; i++) {
+            chro = new Chromosome(chro,geneSize);
             population.add(chro);
         }
         caculteScore();

@@ -1,5 +1,8 @@
 package com.jiahui.tools;
 
+import static com.jiahui.geneticAlgorithm.GeneticAlgorithmTest.DIG_NUM;
+import static com.jiahui.geneticAlgorithm.GeneticAlgorithmTest.WS_NUM;
+
 /**
  * @author ：Li Jiahui
  * @date ：Created in 2019/06/10 15:39
@@ -27,9 +30,14 @@ public class Test {
         return num;
     }
 
+    public static  float 狗东西(float um){
+
+        return (float) (4*      (um/Math.pow(2,DIG_NUM*WS_NUM))   *           (1-(um/Math.pow(2,DIG_NUM*WS_NUM)))       *             Math.pow(2,DIG_NUM*WS_NUM));
+    }
+
     public static void main(String args[]){
 
-        DButil db=new DButil();
+        System.out.println(Math.random());
 
 
 

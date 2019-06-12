@@ -19,7 +19,7 @@ public class Figure {
         DButil db=new DButil();
         List<Map<String ,Object>> list=db.queryToList("select * from data");
         for(int i=0;i<list.size();i++){
-            System.out.print((Float) list.get(i).get("y")-1200+",");
+            System.out.print((Float) list.get(i).get("y")-1250+",");
         }
 
     }

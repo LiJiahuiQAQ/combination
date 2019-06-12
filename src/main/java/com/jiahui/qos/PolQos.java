@@ -35,8 +35,8 @@ public class PolQos {
             for(int j=0;j<4;j++){
                 for(int k=0;k<4;k++){
                     for(int m=0;m<4;m++){
-                        System.out.println(1000-polAll(new int[]{i, j, k, m}));
-                        list.add( (1000-polAll(new int[]{i, j, k, m})));
+                        System.out.println(800-polAll(new int[]{i, j, k, m}));
+                        list.add( (800-polAll(new int[]{i, j, k, m})));
                     }
                 }
             }

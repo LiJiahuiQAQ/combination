@@ -31,11 +31,37 @@ public class Chromosome {
             return;
         }
         initGeneSize(size);
-        for (int i = 0; i < size; i++) {
-            gene[i] = Math.random() >= 0.5;
+        double num=Math.random();
+        gene[0]=num >=0.5;
+        for (int i = 1; i < size; i++) {
+            num=GeneticAlgorithmTest.u*num*(1-num);
+            gene[i] = num >= 0.5;
         }
     }
 
+    public Chromosome(Chromosome chro,int size){
+        int num=chro.getNum();
+        double beiTa=(double)(num/Math.pow(2,GeneticAlgorithmTest.DIG_NUM)/GeneticAlgorithmTest.WS_NUM);
+        int thisNum= (int) (beiTa*GeneticAlgorithmTest.u*(1-beiTa)*Math.pow(2,GeneticAlgorithmTest.DIG_NUM)* GeneticAlgorithmTest.WS_NUM);
+
+        initGeneSize(size);
+        for(int i=0;i<size;i++){
+            gene[i]=(thisNum >>> i & 1)==1? true: false;
+        }
+
+    }
+
+
+//
+//    public Chromosome(int size) {
+//        if (size <= 0) {
+//            return;
+//        }
+//        initGeneSize(size);
+//        for (int i = 0; i < size; i++) {
+//            gene[i] = Math.random() >= 0.5;
+//        }
+//    }
     /**
      * 生成一个新基因
      */
@@ -71,6 +97,9 @@ public class Chromosome {
             return;
         }
         gene = new boolean[size];
+        for(int i=0;i<size;i++){
+            gene[i]=false;
+        }
     }
 
 

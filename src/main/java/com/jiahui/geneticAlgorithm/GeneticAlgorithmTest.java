@@ -10,9 +10,10 @@ import com.jiahui.qos.PolQos;
  * @version: 1.0
  */
 public class GeneticAlgorithmTest extends GeneticAlgorithm{
-    public static final int DIG_NUM=3;
-    public static final int WS_NUM=8;
+    public static final int DIG_NUM=2;
+    public static final int WS_NUM=4;
     public static final int NUM = 1 << DIG_NUM*WS_NUM;
+    public static final int u=4;
 
     public GeneticAlgorithmTest() {
         super(DIG_NUM*WS_NUM);
@@ -22,6 +23,7 @@ public class GeneticAlgorithmTest extends GeneticAlgorithm{
     @Override
     public double changeX(Chromosome chro) {
         // TODO Auto-generated method stub
+//        return (double)(u*(float)(chro.getNum()/Math.pow(2,DIG_NUM*WS_NUM))*(1-(float)(chro.getNum()/Math.pow(2,DIG_NUM*WS_NUM)))*Math.pow(2,DIG_NUM*WS_NUM));
         return chro.getNum();
     }
 
